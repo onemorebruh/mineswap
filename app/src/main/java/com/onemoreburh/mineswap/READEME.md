@@ -3,7 +3,7 @@
 ## TODO
 
 frontend:
-- [ ] one square of field
+- [x] one square of field
 - [ ] field 9x9
 - [ ] settings button
 - [ ] new game button
