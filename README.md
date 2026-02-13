@@ -5,10 +5,10 @@
 frontend:
 - [x] one square of field
 - [ ] field 9x9
-- [ ] settings button
-- [ ] new game button
+- [x] settings button
+- [x] new game button
 
 backend:
 - [ ] random bomb placement function
-- [ ] square onclick opening
+- [x] square onclick opening
 - [ ] square onhold flag placing
