@@ -6,15 +6,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.onemoreburh.mineswap.R
-import com.onemoreburh.mineswap.buttons.ResetButton
+import com.onemoreburh.mineswap.bottomBar.buttons.ResetButton
+import com.onemoreburh.mineswap.bottomBar.buttons.SettingsButton
 import com.onemoreburh.mineswap.ui.theme.Brown40
 import com.onemoreburh.mineswap.ui.theme.Orange40
 import com.onemoreburh.mineswap.ui.theme.Red80
@@ -44,6 +41,6 @@ fun BottomBar(
     ) {
 
         ResetButton(navButtonColors,navButtonModifier)
-        SettingsButton(navButtonColors,navButtonModifier)
+        SettingsButton(navButtonColors, navButtonModifier)
     }
 }
