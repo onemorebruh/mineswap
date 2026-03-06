@@ -61,7 +61,6 @@ object FieldController {
                 }
             }
         }
-        Log.i("MINES", "$minesAround")
         return minesAround
     }
 

@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.onemoreburh.mineswap.ui.bottomBar.buttons.ResetButton
-import com.onemoreburh.mineswap.ui.bottomBar.buttons.SettingsButton
 import com.onemoreburh.mineswap.ui.theme.Brown40
 import com.onemoreburh.mineswap.ui.theme.Orange40
 import com.onemoreburh.mineswap.ui.theme.Red80
@@ -41,6 +40,5 @@ fun BottomBar(
     ) {
 
         ResetButton(navButtonColors, navButtonModifier)
-        SettingsButton(navButtonColors, navButtonModifier)
     }
 }

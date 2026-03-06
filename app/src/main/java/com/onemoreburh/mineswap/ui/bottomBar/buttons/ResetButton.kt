@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import com.onemoreburh.mineswap.R
 
 @Composable
-fun ResetButton(buttonColors: ButtonColors, buttonModifier: Modifier){
+fun ResetButton(buttonColors: ButtonColors, modifier: Modifier){
     Button(
         onClick = {},
         colors = buttonColors
@@ -17,7 +17,7 @@ fun ResetButton(buttonColors: ButtonColors, buttonModifier: Modifier){
         Icon(
             painter = painterResource(id = R.drawable.reset_game_24),
             contentDescription = "reset game",
-            modifier = buttonModifier,
+            modifier = modifier,
         )
     }
 }

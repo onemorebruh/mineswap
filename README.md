@@ -7,8 +7,9 @@ frontend:
 - [x] field 9x9
 - [x] settings button
 - [x] new game button
-- [ ] display mines around
+- [x] display mines around
 - [ ] do the better color design
+- [ ] show amount of flags user have
 
 backend:
 - [x] random bomb placement function
