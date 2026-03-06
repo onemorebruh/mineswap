@@ -7,10 +7,11 @@ frontend:
 - [x] field 9x9
 - [x] settings button
 - [x] new game button
+- [ ] display mines around
 - [ ] do the better color design
 
 backend:
-- [ ] random bomb placement function
+- [x] random bomb placement function
 - [x] square onclick opening
 - [ ] square onhold flag placing
 - [ ] reset button resets game

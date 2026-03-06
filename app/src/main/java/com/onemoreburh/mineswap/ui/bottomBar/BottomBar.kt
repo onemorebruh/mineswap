@@ -1,4 +1,4 @@
-package com.onemoreburh.mineswap.bottomBar
+package com.onemoreburh.mineswap.ui.bottomBar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -10,8 +10,8 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.onemoreburh.mineswap.bottomBar.buttons.ResetButton
-import com.onemoreburh.mineswap.bottomBar.buttons.SettingsButton
+import com.onemoreburh.mineswap.ui.bottomBar.buttons.ResetButton
+import com.onemoreburh.mineswap.ui.bottomBar.buttons.SettingsButton
 import com.onemoreburh.mineswap.ui.theme.Brown40
 import com.onemoreburh.mineswap.ui.theme.Orange40
 import com.onemoreburh.mineswap.ui.theme.Red80
@@ -40,7 +40,7 @@ fun BottomBar(
         horizontalArrangement = Arrangement.SpaceAround
     ) {
 
-        ResetButton(navButtonColors,navButtonModifier)
+        ResetButton(navButtonColors, navButtonModifier)
         SettingsButton(navButtonColors, navButtonModifier)
     }
 }

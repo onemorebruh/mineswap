@@ -1,7 +1,7 @@
-package com.onemoreburh.mineswap.game.field
+package com.onemoreburh.mineswap.ui.game.field
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -14,13 +14,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.onemoreburh.mineswap.game.field.Constants.SquareSize
+import com.onemoreburh.mineswap.logic.FieldController.getNumberBombsByCoordinates
+import com.onemoreburh.mineswap.ui.game.field.Constants.SquareSize
 import com.onemoreburh.mineswap.ui.theme.Pink80
 import com.onemoreburh.mineswap.ui.theme.Purple80
 import com.onemoreburh.mineswap.ui.theme.PurpleGrey80
 
 @Composable
-fun FieldSquare() {
+fun FieldSquare(x: Int, y: Int) {
     //button states
     var enabled by remember{ mutableStateOf(true) }
 
@@ -42,13 +43,7 @@ fun FieldSquare() {
             color = if (enabled) Pink80 else PurpleGrey80,
         ),
     ) {
-        if (enabled) " " else GetMinesAround()
+        if (enabled) " " else getNumberBombsByCoordinates(x, y) // " " stands for untouched to hide the number
     }
 }
 
-
-@Composable
-fun GetMinesAround(){
-    //TODO center text
-    Text("0")
-}

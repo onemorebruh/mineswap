@@ -1,4 +1,4 @@
-package com.onemoreburh.mineswap.game.field
+package com.onemoreburh.mineswap.ui.game.field
 
 import androidx.compose.ui.unit.dp
 
