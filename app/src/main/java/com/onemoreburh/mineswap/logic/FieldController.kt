@@ -1,6 +1,6 @@
 package com.onemoreburh.mineswap.logic
 
-import android.util.Log
+import com.onemoreburh.mineswap.logic.GameController.BOMB_AMOUNT
 import kotlin.random.Random
 
 object FieldController {
@@ -8,7 +8,7 @@ object FieldController {
     private var isGameStarted: Boolean = false //for placing bombs check
     private var isGameLost: Boolean = false //to drop game
 
-    private lateinit var bombsList: List<Pair<Int, Int>>//coordinates of bombs
+    lateinit var bombsList: List<Pair<Int, Int>>//coordinates of bombs
 
     private fun generateBombCoordinates(): List<Pair<Int, Int>> {
 
@@ -17,7 +17,7 @@ object FieldController {
             (0..8).map { y -> x to y }
         }.shuffled(Random)
 
-        return coordinates.take(10)
+        return coordinates.take(BOMB_AMOUNT)
     }
 
     private fun initBombsArray (x: Int, y: Int): List<Pair<Int, Int>> {
@@ -29,7 +29,7 @@ object FieldController {
     }
 
 
-    private fun getBoolBombByCoordinates(x: Int, y: Int): Boolean{
+    fun getBoolBombByCoordinates(x: Int, y: Int): Boolean{
         if (Pair(x,y) in bombsList) {
             return true
         } else {
@@ -38,6 +38,8 @@ object FieldController {
     }
 
     // public
+
+    //returns amount of bombs around the coordinates
     fun getNumberBombsByCoordinates(x: Int, y: Int): Int{
 
         var minesAround: Int = 0
@@ -50,7 +52,6 @@ object FieldController {
         //if user have touched the mine
         if(getBoolBombByCoordinates(x,y)){
             isGameLost = true
-            TODO("notify user the game is lost")
         }
 
         //check for mines in neighbor squares

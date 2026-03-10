@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.onemoreburh.mineswap.ui.bottomBar.BottomBar
 import com.onemoreburh.mineswap.ui.game.Game
 import com.onemoreburh.mineswap.ui.theme.MineswapTheme
+import com.onemoreburh.mineswap.ui.topBar.TopBar
 
 
 class MainActivity : ComponentActivity() {
@@ -23,6 +24,9 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(modifier = Modifier
                     .fillMaxSize(),
+                    topBar = {
+                        TopBar()
+                    },
                     bottomBar = {
                         BottomBar()
                     }
