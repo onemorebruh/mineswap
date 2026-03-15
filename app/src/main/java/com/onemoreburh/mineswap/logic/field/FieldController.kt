@@ -1,18 +1,17 @@
-package com.onemoreburh.mineswap.logic
+package com.onemoreburh.mineswap.logic.field
 
-import androidx.compose.ui.focus.FocusRequester
 import com.onemoreburh.mineswap.logic.GameController.BOMB_AMOUNT
 import kotlin.random.Random
 
 object FieldController {
 
-    val fieldFocusRequester = FocusRequester()
+    var allSquares: List<List<Square>> = List(9){List(9){Square()}}
 
     private var isGameStarted: Boolean = false //for placing bombs check
     private var isGameLost: Boolean = false //to drop game
 
-    lateinit var bombsList: List<Pair<Int, Int>>//coordinates of bombs
 
+    //don't touch! in case where random bomb is placed on first turn square it prevets from errors
     private fun generateBombCoordinates(): List<Pair<Int, Int>> {
 
         //generates coordinates for 10 mines
@@ -23,24 +22,24 @@ object FieldController {
         return coordinates.take(BOMB_AMOUNT)
     }
 
-    private fun initBombsArray (x: Int, y: Int): List<Pair<Int, Int>> {
+    //x and y are coordinates where bomb must never appear
+    private fun initBombs (x: Int, y: Int){
         //generate coordinates until there is no first square coordinates in it
         val bombCoordinatesArray = generateSequence { generateBombCoordinates() }
             .first { Pair(x, y) !in it }
 
-        return bombCoordinatesArray
-    }
-
-
-    fun getBoolBombByCoordinates(x: Int, y: Int): Boolean{
-        if (Pair(x,y) in bombsList) {
-            return true
-        } else {
-            return false
+        bombCoordinatesArray.forEach { pair ->
+            allSquares[pair.second][pair.first].placeBomb();
         }
     }
 
+
+
     // public
+
+    fun getBoolBombByCoordinates(x: Int, y: Int): Boolean{
+        return allSquares[y][x].hasBomb();
+    }
 
     //returns amount of bombs around the coordinates
     fun getNumberBombsByCoordinates(x: Int, y: Int): Int{
@@ -49,7 +48,7 @@ object FieldController {
         //bomb placement after user's first turn
         if (!isGameStarted){
             isGameStarted = true
-            bombsList = initBombsArray(x,y)
+            initBombs(x,y)
         }
 
         //if user have touched the mine
@@ -70,14 +69,18 @@ object FieldController {
     }
 
 
+
     fun reset(){
         //reset properties
         isGameStarted = false;
         isGameLost = false;
-        bombsList = emptyList();
 
         //enable each button in field
-        val column = fieldFocusRequester.requestFocus();
+        for ( i in allSquares.indices ){
+            for (j in allSquares[i].indices){
+                allSquares[i][j].reset();
+            }
+        }
 
     }
 

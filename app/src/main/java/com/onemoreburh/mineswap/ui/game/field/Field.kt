@@ -7,19 +7,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
-import com.onemoreburh.mineswap.logic.FieldController.fieldFocusRequester
-import com.onemoreburh.mineswap.ui.Constants.SquareRowSize
+import com.onemoreburh.mineswap.ui.SquareRowSize
 
 
 @Composable
 fun Field(){
-    val fieldContext = LocalContext.current;
 
     Column(
         modifier = Modifier
-            .focusRequester(fieldFocusRequester)
             .fillMaxWidth()
     ) {
         for (i in 0..8) {

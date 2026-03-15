@@ -1,6 +1,6 @@
 package com.onemoreburh.mineswap.logic
 
-import com.onemoreburh.mineswap.logic.FieldController.getBoolBombByCoordinates
+import com.onemoreburh.mineswap.logic.field.FieldController.getBoolBombByCoordinates
 
 object GameController {
     const val BOMB_AMOUNT: Int = MAX_BOMBS;

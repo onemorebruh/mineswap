@@ -24,12 +24,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.onemoreburh.mineswap.R
-import com.onemoreburh.mineswap.logic.FieldController.getNumberBombsByCoordinates
-import com.onemoreburh.mineswap.logic.FlagController.flagsAmount
-import com.onemoreburh.mineswap.logic.FlagController.isAllowedToPlaceAFlag
-import com.onemoreburh.mineswap.logic.GameController.clickAround
-import com.onemoreburh.mineswap.logic.GameController.gameControllerOnSquareClick
-import com.onemoreburh.mineswap.ui.Constants.SquareSize
+import com.onemoreburh.mineswap.logic.field.FieldController.allSquares
+import com.onemoreburh.mineswap.logic.field.FieldController
+import com.onemoreburh.mineswap.ui.SquareSize
 import com.onemoreburh.mineswap.ui.theme.Pink80
 import com.onemoreburh.mineswap.ui.theme.Purple80
 import com.onemoreburh.mineswap.ui.theme.PurpleGrey80
@@ -39,11 +36,13 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun FieldSquare(x: Int, y: Int) {
-    //button states
-    var enabled by remember{ mutableStateOf(true) }
-    var squareText by remember { mutableStateOf( "") }
-    var isFlagFree by remember { mutableStateOf(true) }
 
+    //Don't touch it
+    FieldController.allSquares[y][x].setCoordinates(x,y)
+
+    var isEnabled by remember { mutableStateOf(allSquares[y][x].isEnabled) }
+    var isFlagFree by remember { mutableStateOf(allSquares[y][x].isFlagFree) }
+    var squareText by remember { mutableStateOf(allSquares[y][x].squareText) }
 
     val interactionSource = remember { MutableInteractionSource() };
     val viewConfiguration = LocalViewConfiguration.current;
@@ -60,9 +59,7 @@ fun FieldSquare(x: Int, y: Int) {
 
 
                     //long click commands
-
-                    //render flag
-                    isFlagFree = !isFlagFree;
+                    allSquares[y][x].flagSquare()
 
                 }
 
@@ -70,21 +67,7 @@ fun FieldSquare(x: Int, y: Int) {
                     if (isLongClick.not()){
 
                         //short click commands
-                        if(isFlagFree) {
-
-                            //disable button
-                            enabled = false
-
-                            //display bombs around
-                            squareText = getNumberBombsByCoordinates(x, y).toString()
-                            gameControllerOnSquareClick(x, y)
-
-                            //TODO click on squares around the square with no bombs around
-                            if (squareText == "0") {
-                                //open squares around
-                                clickAround(x, y);
-                            }
-                        }
+                        allSquares[y][x].openSquare()
                         //otherwise act like disabled
 
                     }
@@ -96,8 +79,8 @@ fun FieldSquare(x: Int, y: Int) {
 
     Button(
         onClick = {
-            /* check combinedClickable for it */},
-        enabled = enabled,
+            /* check LaunchedEffect for it */},
+        enabled = isEnabled,
         modifier = Modifier.size(SquareSize),
         contentPadding = PaddingValues(0.dp),
         shape = RoundedCornerShape(5.dp),
@@ -108,7 +91,7 @@ fun FieldSquare(x: Int, y: Int) {
         ),
         border = BorderStroke(
             width = 2.dp,
-            color = if (enabled) Pink80 else PurpleGrey80,
+            color = if (isEnabled) Pink80 else PurpleGrey80,
         ),
         interactionSource = interactionSource//for long click implementation
     ){
