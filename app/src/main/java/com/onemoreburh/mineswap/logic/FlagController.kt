@@ -1,7 +1,7 @@
 package com.onemoreburh.mineswap.logic
 
 object FlagController {
-    var flagsAmount: Int = 10;
+    var flagsAmount: Int = MAX_FLAGS;
 
 
 
@@ -9,5 +9,8 @@ object FlagController {
         return (flagsAmount > 0);
     }
 
+    fun reset(){
+        flagsAmount = MAX_FLAGS;
+    }
 
 }

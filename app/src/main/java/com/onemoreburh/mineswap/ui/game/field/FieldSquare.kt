@@ -29,7 +29,7 @@ import com.onemoreburh.mineswap.logic.FlagController.flagsAmount
 import com.onemoreburh.mineswap.logic.FlagController.isAllowedToPlaceAFlag
 import com.onemoreburh.mineswap.logic.GameController.clickAround
 import com.onemoreburh.mineswap.logic.GameController.gameControllerOnSquareClick
-import com.onemoreburh.mineswap.ui.game.field.Constants.SquareSize
+import com.onemoreburh.mineswap.ui.Constants.SquareSize
 import com.onemoreburh.mineswap.ui.theme.Pink80
 import com.onemoreburh.mineswap.ui.theme.Purple80
 import com.onemoreburh.mineswap.ui.theme.PurpleGrey80

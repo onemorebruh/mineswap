@@ -3,8 +3,8 @@ package com.onemoreburh.mineswap.logic
 import com.onemoreburh.mineswap.logic.FieldController.getBoolBombByCoordinates
 
 object GameController {
-    const val BOMB_AMOUNT: Int = 10;
-    var squaresLeft: Int = 71; //squares on the field without bombs
+    const val BOMB_AMOUNT: Int = MAX_BOMBS;
+    var squaresLeft: Int = SAFE_SQUARES; //squares on the field without bombs
     //var bombCoverage: Int = 0; //if 10 you win
 
 
@@ -36,5 +36,9 @@ object GameController {
 
     fun gameControllerOnBombClick(){
         //alert you lost
+    }
+
+    fun reset(){
+        squaresLeft = SAFE_SQUARES;
     }
 }

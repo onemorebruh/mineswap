@@ -1,9 +1,12 @@
 package com.onemoreburh.mineswap.logic
 
+import androidx.compose.ui.focus.FocusRequester
 import com.onemoreburh.mineswap.logic.GameController.BOMB_AMOUNT
 import kotlin.random.Random
 
 object FieldController {
+
+    val fieldFocusRequester = FocusRequester()
 
     private var isGameStarted: Boolean = false //for placing bombs check
     private var isGameLost: Boolean = false //to drop game
@@ -63,6 +66,19 @@ object FieldController {
             }
         }
         return minesAround
+
+    }
+
+
+    fun reset(){
+        //reset properties
+        isGameStarted = false;
+        isGameLost = false;
+        bombsList = emptyList();
+
+        //enable each button in field
+        val column = fieldFocusRequester.requestFocus();
+
     }
 
 }

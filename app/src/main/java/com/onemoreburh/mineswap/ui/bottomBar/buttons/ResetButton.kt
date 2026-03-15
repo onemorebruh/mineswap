@@ -7,11 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.onemoreburh.mineswap.R
+import com.onemoreburh.mineswap.logic.bottomBar.ResetController
 
 @Composable
 fun ResetButton(buttonColors: ButtonColors, modifier: Modifier){
     Button(
-        onClick = {},
+        onClick = {
+            ResetController.resetGame();
+        },
         colors = buttonColors
     ) {
         Icon(
