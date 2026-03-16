@@ -1,42 +1,39 @@
 package com.onemoreburh.mineswap.logic
 
+import androidx.lifecycle.MutableLiveData
 import com.onemoreburh.mineswap.logic.field.FieldController.getBoolBombByCoordinates
 
 object GameController {
     const val BOMB_AMOUNT: Int = MAX_BOMBS;
     var squaresLeft: Int = SAFE_SQUARES; //squares on the field without bombs
-    //var bombCoverage: Int = 0; //if 10 you win
+    var bombCoverage: Int = 0; //if 10 you win
+    var isGameWon: MutableLiveData<Boolean?> = MutableLiveData(null);
 
 
-    fun gameControllerOnSquareClick(x: Int, y: Int){
-        squaresLeft -= 1;
-        if (getBoolBombByCoordinates(x,y)) {
-            TODO("notify user the game is lost")
+    fun ifWin(){
+
+        //all bombs are marked with flags
+        if (bombCoverage == BOMB_AMOUNT){
+            gameWin();
         }
-        ifWin()
-    }
 
-    private fun ifWin(){
-
-        //check if lose
-        if (squaresLeft != 0 ){
+        if (squaresLeft == 0){
+            gameWin();
         }
-//        if (bombCoverage != BOMB_AMOUNT){
-//        }
-
-        //win otherwise
-        //win dialog
     }
 
-    fun gameControllerOnBombClick(){
-        //alert you lost
-    }
 
     fun gameLost(){
-        TODO("")
+        isGameWon.value = false;
+    }
+
+    fun gameWin(){
+        isGameWon.value = true
     }
 
     fun reset(){
         squaresLeft = SAFE_SQUARES;
+        bombCoverage = 0;
+        isGameWon.value = null;
     }
 }

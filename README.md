@@ -9,6 +9,7 @@ frontend:
 - [x] new game button
 - [x] display mines around
 - [ ] do the better color design
+- [ ] show shake animation when user can't place a flag
 - [x] show amount of flags user have
 - [x] placing flag changing flag amount in top bar
 
@@ -17,6 +18,6 @@ backend:
 - [x] square onclick opening
 - [x] square onhold flag placing
 - [x] check for flag placing rules
-- [ ] notify player if they win
-- [ ] notify player if they lose
+- [x] notify player if they win
+- [x] notify player if they lose
 - [x] reset button resets game

@@ -103,7 +103,7 @@ object FieldController {
         //enable each button in field
         for ( i in allSquares.indices ){
             for (j in allSquares[i].indices){
-                allSquares[i][j].reset();
+                allSquares[i][j].reset(j,i);
             }
         }
 

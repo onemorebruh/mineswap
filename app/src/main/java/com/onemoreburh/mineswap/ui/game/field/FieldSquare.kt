@@ -1,5 +1,6 @@
 package com.onemoreburh.mineswap.ui.game.field
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -28,6 +29,7 @@ import com.onemoreburh.mineswap.R
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_ENABLED
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_FLAG_FREE
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
+import com.onemoreburh.mineswap.logic.GameController.ifWin
 import com.onemoreburh.mineswap.logic.field.FieldController.allSquares
 import com.onemoreburh.mineswap.logic.field.FieldController
 import com.onemoreburh.mineswap.ui.SquareSize
@@ -44,9 +46,9 @@ fun FieldSquare(x: Int, y: Int) {
     //Don't touch it
     allSquares[y][x].setCoordinates(x,y)
 
-    var isEnabled = allSquares[y][x].isEnabled.observeAsState(DEFAULT_SQUARE_IS_ENABLED);
-    var isFlagFree = allSquares[y][x].isFlagFree.observeAsState(DEFAULT_SQUARE_IS_FLAG_FREE);
-    var squareText = allSquares[y][x].squareText.observeAsState(DEFAULT_SQUARE_TEXT);
+    val isEnabled = allSquares[y][x].isEnabled.observeAsState(DEFAULT_SQUARE_IS_ENABLED);
+    val isFlagFree = allSquares[y][x].isFlagFree.observeAsState(DEFAULT_SQUARE_IS_FLAG_FREE);
+    val squareText = allSquares[y][x].squareText.observeAsState(DEFAULT_SQUARE_TEXT);
 
     val interactionSource = remember { MutableInteractionSource() };
     val viewConfiguration = LocalViewConfiguration.current;
@@ -72,11 +74,11 @@ fun FieldSquare(x: Int, y: Int) {
 
                         //short click commands
                         allSquares[y][x].openSquare()
-                        //otherwise act like disabled
 
                     }
                 }
             }
+            ifWin();//every turn checks if user win
         }
     }
 

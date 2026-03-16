@@ -10,6 +10,7 @@ import com.onemoreburh.mineswap.logic.FlagController.freeFromFlag
 import com.onemoreburh.mineswap.logic.FlagController.isAllowedToPlaceAFlag
 import com.onemoreburh.mineswap.logic.FlagController.registerFlag
 import com.onemoreburh.mineswap.logic.GameController.gameLost
+import com.onemoreburh.mineswap.logic.GameController.squaresLeft
 import com.onemoreburh.mineswap.logic.field.FieldController.clickAround
 
 class Square: ViewModel {
@@ -28,14 +29,6 @@ class Square: ViewModel {
         hasBomb = false;
     }
 
-    fun reset(){
-        this.isEnabled.value = DEFAULT_SQUARE_IS_ENABLED;
-        this.squareText.value = DEFAULT_SQUARE_TEXT;
-        this.isFlagFree.value = DEFAULT_SQUARE_IS_FLAG_FREE;
-        this.x = null;
-        this.y = null;
-        this.hasBomb = false;
-    }
 
     fun placeBomb(){
         this.hasBomb = true;
@@ -63,6 +56,8 @@ class Square: ViewModel {
             if (this.squareText.value == "0") {
                 clickAround(this.x!!, this.y!!);
             }
+
+            squaresLeft -= 1;
         }
 
     }
@@ -76,7 +71,7 @@ class Square: ViewModel {
         if (this.isFlagFree.value == true){//if already have flag on it
             if (isAllowedToPlaceAFlag()){// if have no flags
                 this.isFlagFree.value = false;
-                registerFlag()
+                registerFlag(this);
 
             } else {
                 TODO("notify user, they have no flags")
@@ -84,8 +79,15 @@ class Square: ViewModel {
         } else {
 
             this.isFlagFree.value = true;
-            freeFromFlag();
+            freeFromFlag(this);
         }
+    }
+
+    fun reset(x: Int,y: Int){
+        this.isEnabled.value = DEFAULT_SQUARE_IS_ENABLED;
+        this.squareText.value = DEFAULT_SQUARE_TEXT;
+        this.isFlagFree.value = DEFAULT_SQUARE_IS_FLAG_FREE;
+        this.hasBomb = false;
     }
 
 }
