@@ -19,4 +19,4 @@ backend:
 - [ ] check for flag placing rules
 - [ ] notify player if they win
 - [ ] notify player if they lose
-- [ ] reset button resets game
+- [x] reset button resets game

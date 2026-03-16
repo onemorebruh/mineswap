@@ -1,5 +1,6 @@
 package com.onemoreburh.mineswap.logic.field
 
+import android.util.Log
 import com.onemoreburh.mineswap.logic.GameController.BOMB_AMOUNT
 import kotlin.random.Random
 
@@ -59,8 +60,14 @@ object FieldController {
         //check for mines in neighbor squares
         for (i in (y-1)..(y+1)){
             for (j in (x-1)..(x+1)){
-                if (getBoolBombByCoordinates(j,i)){
-                    minesAround += 1
+                //out of range check
+                if (i in 0..8){
+                    if (j in 0..8){
+
+                        if (getBoolBombByCoordinates(j,i)){
+                            minesAround += 1
+                        }
+                    }
                 }
             }
         }
