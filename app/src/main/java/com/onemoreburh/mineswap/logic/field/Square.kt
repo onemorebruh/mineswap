@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_ENABLED
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_FLAG_FREE
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
+import com.onemoreburh.mineswap.logic.FlagController.freeFromFlag
+import com.onemoreburh.mineswap.logic.FlagController.isAllowedToPlaceAFlag
+import com.onemoreburh.mineswap.logic.FlagController.registerFlag
 
 class Square: ViewModel {
     var isEnabled: MutableLiveData<Boolean> = MutableLiveData(DEFAULT_SQUARE_IS_ENABLED);
@@ -65,7 +68,19 @@ class Square: ViewModel {
     }
 
     fun flagSquare(){
-        this.isFlagFree.value = !this.isFlagFree.value!!;
+        if (this.isFlagFree.value == true){//if already have flag on it
+            if (isAllowedToPlaceAFlag()){// if have no flags
+                this.isFlagFree.value = false;
+                registerFlag()
+
+            } else {
+                TODO("notify user, they have no flags")
+            }
+        } else {
+
+            this.isFlagFree.value = true;
+            freeFromFlag();
+        }
     }
 
 }
