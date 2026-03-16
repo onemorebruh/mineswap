@@ -5,7 +5,7 @@ import kotlin.random.Random
 
 object FieldController {
 
-    var allSquares: List<List<Square>> = List(9){List(9){Square()}}
+    var allSquares: List<List<Square>> = List(9){List(9){Square(null, null)}}
 
     private var isGameStarted: Boolean = false //for placing bombs check
     private var isGameLost: Boolean = false //to drop game

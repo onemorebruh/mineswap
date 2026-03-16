@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,6 +25,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.onemoreburh.mineswap.R
+import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_ENABLED
+import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_FLAG_FREE
+import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
 import com.onemoreburh.mineswap.logic.field.FieldController.allSquares
 import com.onemoreburh.mineswap.logic.field.FieldController
 import com.onemoreburh.mineswap.ui.SquareSize
@@ -38,11 +42,11 @@ import kotlinx.coroutines.flow.collectLatest
 fun FieldSquare(x: Int, y: Int) {
 
     //Don't touch it
-    FieldController.allSquares[y][x].setCoordinates(x,y)
+    allSquares[y][x].setCoordinates(x,y)
 
-    var isEnabled by remember { mutableStateOf(allSquares[y][x].isEnabled) }
-    var isFlagFree by remember { mutableStateOf(allSquares[y][x].isFlagFree) }
-    var squareText by remember { mutableStateOf(allSquares[y][x].squareText) }
+    var isEnabled = allSquares[y][x].isEnabled.observeAsState(DEFAULT_SQUARE_IS_ENABLED);
+    var isFlagFree = allSquares[y][x].isFlagFree.observeAsState(DEFAULT_SQUARE_IS_FLAG_FREE);
+    var squareText = allSquares[y][x].squareText.observeAsState(DEFAULT_SQUARE_TEXT);
 
     val interactionSource = remember { MutableInteractionSource() };
     val viewConfiguration = LocalViewConfiguration.current;
@@ -80,7 +84,7 @@ fun FieldSquare(x: Int, y: Int) {
     Button(
         onClick = {
             /* check LaunchedEffect for it */},
-        enabled = isEnabled,
+        enabled = isEnabled.value,
         modifier = Modifier.size(SquareSize),
         contentPadding = PaddingValues(0.dp),
         shape = RoundedCornerShape(5.dp),
@@ -91,15 +95,15 @@ fun FieldSquare(x: Int, y: Int) {
         ),
         border = BorderStroke(
             width = 2.dp,
-            color = if (isEnabled) Pink80 else PurpleGrey80,
+            color = if (isEnabled.value) Pink80 else PurpleGrey80,
         ),
         interactionSource = interactionSource//for long click implementation
     ){
 
         //bombs around
-        AnimatedVisibility(isFlagFree,
+        AnimatedVisibility(isFlagFree.value,
             Modifier) {
-            Text(squareText,
+            Text(squareText.value,
                 Modifier
                     .padding(0.dp),
                 //textAlign = TextAlign.Center,
@@ -111,7 +115,7 @@ fun FieldSquare(x: Int, y: Int) {
         }
 
         //flag
-        AnimatedVisibility(!isFlagFree, Modifier) {
+        AnimatedVisibility(!isFlagFree.value, Modifier) {
             Icon(
                 painter = painterResource(id = R.drawable.flag_24),
                 contentDescription = "flag marked square",
