@@ -16,12 +16,6 @@ object GameController {
         ifWin()
     }
 
-
-    fun clickAround(x: Int,y: Int){
-        //get field
-        //click each square around
-    }
-
     private fun ifWin(){
 
         //check if lose
@@ -36,6 +30,10 @@ object GameController {
 
     fun gameControllerOnBombClick(){
         //alert you lost
+    }
+
+    fun gameLost(){
+        TODO("")
     }
 
     fun reset(){

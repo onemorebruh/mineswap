@@ -75,7 +75,25 @@ object FieldController {
 
     }
 
+    fun clickAround(x: Int,y: Int){
+        //click each square around
 
+        //check for mines in neighbor squares
+        for (i in (y-1)..(y+1)){
+            for (j in (x-1)..(x+1)){
+                //out of range check
+                if (i in 0..8){
+                    if (j in 0..8){
+
+                        //click
+                        if ((allSquares[i][j].isEnabled.value == true) && (allSquares[i][j].isFlagFree.value == true)){
+                            allSquares[i][j].openSquare();
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     fun reset(){
         //reset properties

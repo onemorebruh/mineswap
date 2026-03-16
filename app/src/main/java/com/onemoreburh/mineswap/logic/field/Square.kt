@@ -9,6 +9,8 @@ import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
 import com.onemoreburh.mineswap.logic.FlagController.freeFromFlag
 import com.onemoreburh.mineswap.logic.FlagController.isAllowedToPlaceAFlag
 import com.onemoreburh.mineswap.logic.FlagController.registerFlag
+import com.onemoreburh.mineswap.logic.GameController.gameLost
+import com.onemoreburh.mineswap.logic.field.FieldController.clickAround
 
 class Square: ViewModel {
     var isEnabled: MutableLiveData<Boolean> = MutableLiveData(DEFAULT_SQUARE_IS_ENABLED);
@@ -46,6 +48,10 @@ class Square: ViewModel {
     fun openSquare(){
         if(this.isFlagFree.value!!) {
 
+            if (this.hasBomb()){
+                gameLost();
+            }
+
             //disable button
             this.isEnabled.value = false
 
@@ -53,10 +59,9 @@ class Square: ViewModel {
             this.squareText.value = FieldController.getNumberBombsByCoordinates(this.x!!, this.y!!).toString()
             //gameControllerOnSquareClick(x, y)
 
-            //TODO click on squares around the square with no bombs around
+            //click on squares around the square with no bombs around
             if (this.squareText.value == "0") {
-                //open squares around
-                //clickAround(x, y); TODO QOL
+                clickAround(this.x!!, this.y!!);
             }
         }
 
