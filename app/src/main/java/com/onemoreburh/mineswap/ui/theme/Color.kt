@@ -2,14 +2,8 @@ package com.onemoreburh.mineswap.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-val Brown80 = Color(0xFF93371C)
-val Red80 = Color(0xFFE91E1E)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-val Brown40 = Color(0xFFB44523)
-val Orange40 = Color(0xFFE88327)
+val PRIMARY_COLOR = Color(0xFFDDE5B6) //CREAM_COLOR
+val SECONDARY_COLOR = Color(0xFF6C584C) //ASH_COLOR
+val TEXT_COLOR = Color(0xFFF0EAD2)//VANILLA_CREAM_COLOR
+val BORDER_COLOR = Color(0xFFADC178)//OLIVE_COLOR
+val OPTIONAL_COLOR = Color(0xFFA98467)//COPPER_COLOR

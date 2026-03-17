@@ -1,25 +1,19 @@
 package com.onemoreburh.mineswap.ui.game.field
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalViewConfiguration
 import androidx.compose.ui.res.painterResource
@@ -31,12 +25,12 @@ import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_FLAG_FREE
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
 import com.onemoreburh.mineswap.logic.GameController.ifWin
 import com.onemoreburh.mineswap.logic.field.FieldController.allSquares
-import com.onemoreburh.mineswap.logic.field.FieldController
-import com.onemoreburh.mineswap.ui.SquareSize
-import com.onemoreburh.mineswap.ui.theme.Pink80
-import com.onemoreburh.mineswap.ui.theme.Purple80
-import com.onemoreburh.mineswap.ui.theme.PurpleGrey80
-import com.onemoreburh.mineswap.ui.theme.Red80
+import com.onemoreburh.mineswap.ui.theme.BORDER_COLOR
+import com.onemoreburh.mineswap.ui.theme.PRIMARY_COLOR
+import com.onemoreburh.mineswap.ui.theme.SECONDARY_COLOR
+import com.onemoreburh.mineswap.ui.theme.TEXT_COLOR
+import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.FIELD_SQUARE_MODIFIER
+import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.FIELD_SQUARE_SHAPE
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
@@ -87,17 +81,17 @@ fun FieldSquare(x: Int, y: Int) {
         onClick = {
             /* check LaunchedEffect for it */},
         enabled = isEnabled.value,
-        modifier = Modifier.size(SquareSize),
+        modifier = FIELD_SQUARE_MODIFIER,
         contentPadding = PaddingValues(0.dp),
-        shape = RoundedCornerShape(5.dp),
+        shape = FIELD_SQUARE_SHAPE,
         colors = ButtonDefaults.buttonColors(
-            containerColor = Purple80,
-            disabledContainerColor = PurpleGrey80
+            containerColor = PRIMARY_COLOR,
+            disabledContainerColor = SECONDARY_COLOR
 
         ),
         border = BorderStroke(
             width = 2.dp,
-            color = if (isEnabled.value) Pink80 else PurpleGrey80,
+            color = if (isEnabled.value) BORDER_COLOR else SECONDARY_COLOR,
         ),
         interactionSource = interactionSource//for long click implementation
     ){
@@ -110,7 +104,7 @@ fun FieldSquare(x: Int, y: Int) {
                     .padding(0.dp),
                 //textAlign = TextAlign.Center,
                 fontSize = 30.sp,
-                color = Red80,
+                color = TEXT_COLOR,
 
                 )
 

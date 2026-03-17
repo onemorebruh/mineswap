@@ -3,26 +3,20 @@ package com.onemoreburh.mineswap.ui.game.field
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.onemoreburh.mineswap.ui.SquareRowSize
+import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.FIELD_COLUMN_MODIFIER
+import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.FIELD_ROW_MODIFIER
 
 
 @Composable
 fun Field(){
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = FIELD_COLUMN_MODIFIER
     ) {
         for (i in 0..8) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    //.width(IntrinsicSize.Min)// fill the width without gaps
-                    .height(SquareRowSize),
+                modifier = FIELD_ROW_MODIFIER,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 for (j in 0..8) {

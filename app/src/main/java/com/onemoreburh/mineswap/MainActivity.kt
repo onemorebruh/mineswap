@@ -4,22 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.tooling.preview.Preview
 import com.onemoreburh.mineswap.dialogs.Lose
 import com.onemoreburh.mineswap.dialogs.Win
-import com.onemoreburh.mineswap.logic.FlagController.flagsAmount
 import com.onemoreburh.mineswap.logic.GameController
-import com.onemoreburh.mineswap.logic.GameController.isGameWon
-import com.onemoreburh.mineswap.logic.MAX_FLAGS
 import com.onemoreburh.mineswap.ui.bottomBar.BottomBar
 import com.onemoreburh.mineswap.ui.game.Game
 import com.onemoreburh.mineswap.ui.theme.MineswapTheme
+import com.onemoreburh.mineswap.ui.theme.SECONDARY_COLOR
 import com.onemoreburh.mineswap.ui.topBar.TopBar
 
 
@@ -30,7 +28,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MineswapTheme {
                 Scaffold(modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .background(SECONDARY_COLOR),
                     topBar = {
                         TopBar()
                     },
@@ -38,7 +37,6 @@ class MainActivity : ComponentActivity() {
                         BottomBar()
                     }
                 ) { innerPadding ->
-
                     val isGameWon = GameController.isGameWon.observeAsState(null);
 
 
@@ -50,7 +48,6 @@ class MainActivity : ComponentActivity() {
                     if (isGameWon.value == false){
                         Lose();
                     }
-
                 }
             }
         }

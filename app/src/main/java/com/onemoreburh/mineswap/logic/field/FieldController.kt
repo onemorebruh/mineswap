@@ -1,6 +1,5 @@
 package com.onemoreburh.mineswap.logic.field
 
-import android.util.Log
 import com.onemoreburh.mineswap.logic.GameController.BOMB_AMOUNT
 import kotlin.random.Random
 
