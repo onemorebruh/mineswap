@@ -8,7 +8,7 @@ frontend:
 - [x] settings button
 - [x] new game button
 - [x] display mines around
-- [ ] do the better color design
+- [x] do the better color design
 - [ ] show shake animation when user can't place a flag
 - [x] show amount of flags user have
 - [x] placing flag changing flag amount in top bar

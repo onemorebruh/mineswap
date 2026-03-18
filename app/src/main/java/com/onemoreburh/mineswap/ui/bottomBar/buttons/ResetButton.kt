@@ -1,12 +1,15 @@
 package com.onemoreburh.mineswap.ui.bottomBar.buttons
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import com.onemoreburh.mineswap.R
 import com.onemoreburh.mineswap.logic.bottomBar.ResetController
 import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.RESET_BUTTON_COLORS
+import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.RESET_BUTTON_ICON_MODIFIER
 import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.RESET_BUTTON_MODIFIER
 
 @Composable
@@ -16,12 +19,13 @@ fun ResetButton(){
         onClick = {
             ResetController.resetGame();
         },
+        contentPadding = PaddingValues(0.dp),
         colors = RESET_BUTTON_COLORS
     ) {
         Icon(
             painter = painterResource(id = R.drawable.reset_game_24),
             contentDescription = "reset game",
-            modifier = RESET_BUTTON_MODIFIER,
+            modifier = RESET_BUTTON_ICON_MODIFIER,
         )
     }
 }

@@ -7,4 +7,4 @@ import androidx.compose.ui.unit.dp
 
 val TOP_BAR_ROW_MODIFIER = Modifier
     .fillMaxWidth()
-    .padding(top = 25.dp)
+    .padding(top = 35.dp);

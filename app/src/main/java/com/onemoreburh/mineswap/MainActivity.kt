@@ -28,8 +28,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MineswapTheme {
                 Scaffold(modifier = Modifier
-                    .fillMaxSize()
-                    .background(SECONDARY_COLOR),
+                    .fillMaxSize(),
+                    contentColor = SECONDARY_COLOR,
                     topBar = {
                         TopBar()
                     },

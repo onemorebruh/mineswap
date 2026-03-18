@@ -25,6 +25,7 @@ import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_FLAG_FREE
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
 import com.onemoreburh.mineswap.logic.GameController.ifWin
 import com.onemoreburh.mineswap.logic.field.FieldController.allSquares
+import com.onemoreburh.mineswap.ui.font.Jersey10
 import com.onemoreburh.mineswap.ui.theme.BORDER_COLOR
 import com.onemoreburh.mineswap.ui.theme.PRIMARY_COLOR
 import com.onemoreburh.mineswap.ui.theme.SECONDARY_COLOR
@@ -105,7 +106,7 @@ fun FieldSquare(x: Int, y: Int) {
                 //textAlign = TextAlign.Center,
                 fontSize = 30.sp,
                 color = TEXT_COLOR,
-
+                fontFamily = Jersey10
                 )
 
         }
