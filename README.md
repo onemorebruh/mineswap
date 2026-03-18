@@ -9,7 +9,7 @@ frontend:
 - [x] new game button
 - [x] display mines around
 - [x] do the better color design
-- [ ] show shake animation when user can't place a flag
+- [x] show shake animation when user can't place a flag
 - [x] show amount of flags user have
 - [x] placing flag changing flag amount in top bar
 

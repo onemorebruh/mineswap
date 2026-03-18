@@ -1,6 +1,15 @@
 package com.onemoreburh.mineswap.ui.game.field
 
+import android.util.Log
+import androidx.compose.animation.Animatable
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
@@ -14,7 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalViewConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -22,7 +34,9 @@ import androidx.compose.ui.unit.sp
 import com.onemoreburh.mineswap.R
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_ENABLED
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_FLAG_FREE
+import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_SHAKE
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
+import com.onemoreburh.mineswap.logic.FlagController.highlightText
 import com.onemoreburh.mineswap.logic.GameController.ifWin
 import com.onemoreburh.mineswap.logic.field.FieldController.allSquares
 import com.onemoreburh.mineswap.ui.font.Jersey10
@@ -34,6 +48,8 @@ import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.FIELD_SQUARE_
 import com.onemoreburh.mineswap.ui.theme.individualThemeProperties.FIELD_SQUARE_SHAPE
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import java.util.Collections.rotate
 
 @Composable
 fun FieldSquare(x: Int, y: Int) {
@@ -44,6 +60,13 @@ fun FieldSquare(x: Int, y: Int) {
     val isEnabled = allSquares[y][x].isEnabled.observeAsState(DEFAULT_SQUARE_IS_ENABLED);
     val isFlagFree = allSquares[y][x].isFlagFree.observeAsState(DEFAULT_SQUARE_IS_FLAG_FREE);
     val squareText = allSquares[y][x].squareText.observeAsState(DEFAULT_SQUARE_TEXT);
+
+    //for animation
+    val squareShake = allSquares[y][x].squareShake.observeAsState(DEFAULT_SQUARE_SHAKE);
+
+    val rotation = remember { Animatable(0f) };
+    val coroutineScope = rememberCoroutineScope();
+
 
     val interactionSource = remember { MutableInteractionSource() };
     val viewConfiguration = LocalViewConfiguration.current;
@@ -62,6 +85,21 @@ fun FieldSquare(x: Int, y: Int) {
                     //long click commands
                     allSquares[y][x].flagSquare()
 
+
+                    //animation
+                    if (squareShake.value == true){
+                        coroutineScope.launch {
+                            highlightText.value = true;
+                            rotation.animateTo(rotation.value + 15f);
+                            highlightText.value = false;
+                            rotation.animateTo(rotation.value - 30f);
+                            highlightText.value = true;
+                            rotation.animateTo(rotation.value + 15f);
+                            allSquares[y][x].squareShake.value = false;
+                            highlightText.value = false;
+                        }
+                    }
+
                 }
 
                 is PressInteraction.Release -> {
@@ -69,6 +107,7 @@ fun FieldSquare(x: Int, y: Int) {
 
                         //short click commands
                         allSquares[y][x].openSquare()
+
 
                     }
                 }
@@ -78,11 +117,13 @@ fun FieldSquare(x: Int, y: Int) {
     }
 
 
+
     Button(
         onClick = {
             /* check LaunchedEffect for it */},
         enabled = isEnabled.value,
-        modifier = FIELD_SQUARE_MODIFIER,
+        modifier = FIELD_SQUARE_MODIFIER
+            .rotate(rotation.value),
         contentPadding = PaddingValues(0.dp),
         shape = FIELD_SQUARE_SHAPE,
         colors = ButtonDefaults.buttonColors(
@@ -107,7 +148,7 @@ fun FieldSquare(x: Int, y: Int) {
                 fontSize = 30.sp,
                 color = TEXT_COLOR,
                 fontFamily = Jersey10
-                )
+            )
 
         }
 

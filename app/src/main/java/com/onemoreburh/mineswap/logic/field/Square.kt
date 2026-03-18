@@ -1,10 +1,12 @@
 package com.onemoreburh.mineswap.logic.field
 
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_ENABLED
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_IS_FLAG_FREE
+import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_SHAKE
 import com.onemoreburh.mineswap.logic.DEFAULT_SQUARE_TEXT
 import com.onemoreburh.mineswap.logic.FlagController.freeFromFlag
 import com.onemoreburh.mineswap.logic.FlagController.isAllowedToPlaceAFlag
@@ -12,11 +14,13 @@ import com.onemoreburh.mineswap.logic.FlagController.registerFlag
 import com.onemoreburh.mineswap.logic.GameController.gameLost
 import com.onemoreburh.mineswap.logic.GameController.squaresLeft
 import com.onemoreburh.mineswap.logic.field.FieldController.clickAround
+import kotlinx.coroutines.delay
 
 class Square: ViewModel {
     var isEnabled: MutableLiveData<Boolean> = MutableLiveData(DEFAULT_SQUARE_IS_ENABLED);
     var squareText: MutableLiveData<String> = MutableLiveData(DEFAULT_SQUARE_TEXT);
     var isFlagFree: MutableLiveData<Boolean> = MutableLiveData(DEFAULT_SQUARE_IS_FLAG_FREE);
+    var squareShake: MutableLiveData<Boolean> = MutableLiveData(DEFAULT_SQUARE_SHAKE);
     private var hasBomb: Boolean = false;
 
     var x: Int? = null;//have to be set before using.
@@ -67,14 +71,15 @@ class Square: ViewModel {
         this.y = y;
     }
 
-    fun flagSquare(){
+    suspend fun flagSquare(){
         if (this.isFlagFree.value == true){//if already have flag on it
             if (isAllowedToPlaceAFlag()){// if have no flags
                 this.isFlagFree.value = false;
                 registerFlag(this);
 
+
             } else {
-                TODO("notify user, they have no flags")
+                this.squareShake.value = true;
             }
         } else {
 

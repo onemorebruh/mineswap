@@ -6,6 +6,7 @@ import com.onemoreburh.mineswap.logic.field.Square
 
 object FlagController {
     var flagsAmount: MutableLiveData<Int> = MutableLiveData(MAX_FLAGS);
+    val highlightText: MutableLiveData<Boolean> = MutableLiveData(false);
 
 
 
